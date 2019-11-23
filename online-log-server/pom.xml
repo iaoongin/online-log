@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>online-log</artifactId>
+        <groupId>me.akoala.online-log</groupId>
+        <version>1.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>me.akoala.online-log</groupId>
+    <artifactId>online-log-server</artifactId>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ystmob</groupId>
+            <artifactId>yst-tech-common</artifactId>
+            <version>1.1.2-SNAPSHOT</version>
+        </dependency>
+
+        <!--swagger 依赖 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+        </dependency>
+        <!--swagger boot ui-->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--打包处理，将jar包和配置文件独立 start-->
+            <!--处理lib-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/app/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+            <!--处理配置文件-->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <!-- 并把文件复制到target/conf目录下-->
+                            <outputDirectory>${project.build.directory}/app/config</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <!-- 指定不需要处理的资源 <excludes> <exclude>WEB-INF/*.*</exclude> </excludes> -->
+                                    <!--指定了就会打包在jar里，不会复制出来-->
+                                    <excludes>
+                                        <!--                                        <exclude>logback.xml</exclude>-->
+                                        <!--                                        <exclude>**/*.xml</exclude>-->
+                                    </excludes>
+
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!--处理jar包-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>me.akoala.onlinelog.ServiceApplication</mainClass>
+                        </manifest>
+                    </archive>
+                    <!-- 排除配置文件 -->
+                    <excludes>
+                        <exclude>*.yml</exclude>
+                        <exclude>*.properties</exclude>
+                        <exclude>**.xml</exclude>
+                        <exclude>mapper/*.xml</exclude>
+                    </excludes>
+                    <outputDirectory>${project.build.directory}/app</outputDirectory>
+                </configuration>
+            </plugin>
+            <!--打包处理，将jar包和配置文件独立 end-->
+        </plugins>
+
+    </build>
+</project>

@@ -1,0 +1,13 @@
+online:
+  log:
+    logMap:
+      nginx-access:
+        name: nginx access 日志
+        path: F:\nginx\nginx-1.16.0\logs\access.log
+      nginx-error:
+        name: nginx error 日志
+        path: F:\nginx\nginx-1.16.0\logs\error.log
+    test: 123
+
+server:
+  port: 3456
