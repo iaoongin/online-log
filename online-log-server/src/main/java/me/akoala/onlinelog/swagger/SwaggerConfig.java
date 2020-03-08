@@ -47,7 +47,6 @@ public class SwaggerConfig {
                 .enable(true)
                 .produces(Sets.newHashSet("application/json;charset=UTF-8"))
                 .select()
-//                .apis(RequestHandlerSelectors.basePackage("com.ystmob.tech.appratio.controller"))
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(outApiInfo())

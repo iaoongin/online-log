@@ -7,3 +7,11 @@ export function tail(params) {
         params: params
     })
 }
+
+
+export function names() {
+    return request({
+        url: '/log/names',
+        method: 'get',
+    })
+}

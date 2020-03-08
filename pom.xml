@@ -12,6 +12,13 @@
     </modules>
     <packaging>pom</packaging>
 
+    <repositories>
+        <repository>
+            <id>iaoongin-maven-repo</id>
+            <url>https://github.com/iaoongin/maven-repo/raw/master/</url>
+        </repository>
+    </repositories>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -26,16 +33,7 @@
 
     <build>
         <plugins>
-            <!-- 指定jdk -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
+
         </plugins>
     </build>
 

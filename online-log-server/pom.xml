@@ -59,6 +59,18 @@
 
     <build>
         <plugins>
+
+            <!-- 指定jdk -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
             <!--打包处理，将jar包和配置文件独立 start-->
             <!--处理lib-->
             <plugin>

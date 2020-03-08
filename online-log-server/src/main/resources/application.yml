@@ -7,6 +7,9 @@ online:
       nginx-error:
         name: nginx error 日志
         path: F:\nginx\nginx-1.16.0\logs\error.log
+      common-log:
+        name: 所有日志
+        path: /Users/xhx-mac/Library/Mobile Documents/com~apple~CloudDocs/code/online-log/log/common/2020-03-08.common.0.log
     test: 123
 
 server:
